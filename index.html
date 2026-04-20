@@ -12,47 +12,51 @@
       font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
       color: #111;
     }
+
     .wrap {
       max-width: 1080px;
       margin: 0 auto;
     }
+
     .controls {
       margin-bottom: 16px;
       text-align: center;
+    }
+
+    .controls-row {
       display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
       justify-content: center;
       align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
     }
-    .controls label {
-      font-weight: bold;
-      font-size: 14px;
-    }
-    .controls select,
-    .controls button {
-      padding: 10px 14px;
-      font-size: 15px;
+
+    button {
+      padding: 10px 18px;
+      font-size: 16px;
       font-weight: bold;
       border: 1px solid #333;
       background: #fff;
-    }
-    .controls button {
       cursor: pointer;
     }
-    .status {
-      margin: 0 0 14px;
-      text-align: center;
+
+    label {
       font-size: 14px;
-      color: #444;
-      min-height: 1.5em;
+      font-weight: bold;
     }
+
+    select {
+      padding: 8px 10px;
+      font-size: 14px;
+    }
+
     table {
       width: 100%;
       border-collapse: collapse;
       table-layout: fixed;
       background: #ffffff;
     }
+
     td {
       border: 1px solid #ffffff;
       text-align: center;
@@ -60,6 +64,7 @@
       padding: 0;
       background: #ffffff;
     }
+
     .title-cell {
       background: #0b3d2e;
       color: #fff;
@@ -69,6 +74,7 @@
       letter-spacing: 1px;
       height: 56px;
     }
+
     .time-top,
     .time-bottom {
       height: 30px;
@@ -77,6 +83,7 @@
       background: #ffffff;
       color: #c40000;
     }
+
     .time-label {
       height: 18px;
       font-size: 11px;
@@ -84,13 +91,16 @@
       background: #ffffff;
       color: #c40000;
     }
+
     .blank {
       background: #ffffff;
     }
+
     .day-cell {
       width: 86px;
       background: #ffffff;
     }
+
     .day-text {
       writing-mode: vertical-rl;
       text-orientation: upright;
@@ -101,12 +111,15 @@
       line-height: 1.2;
       color: #c40000;
     }
+
     .school-row td {
       height: 190px;
     }
+
     .school-cell {
       background: #ffffff;
     }
+
     .school-name {
       height: 100%;
       width: 100%;
@@ -120,6 +133,7 @@
       padding: 14px 0;
       background: #ffffff;
     }
+
     .school-name span {
       display: block;
       width: 100%;
@@ -127,32 +141,38 @@
       white-space: nowrap;
       transform: scaleY(1.02);
     }
+
     .chars-2 {
       justify-content: space-between;
       padding-top: 12px;
       padding-bottom: 12px;
     }
+
     .chars-3 {
       justify-content: space-between;
       padding-top: 10px;
       padding-bottom: 10px;
     }
+
     .chars-4 {
       justify-content: space-around;
       padding-top: 8px;
       padding-bottom: 8px;
     }
+
     .chars-5 {
       justify-content: space-between;
       padding-top: 8px;
       padding-bottom: 8px;
     }
+
     .chars-6plus {
       justify-content: space-evenly;
       font-size: 28px;
       padding-top: 8px;
       padding-bottom: 8px;
     }
+
     .versus-cell {
       height: 42px;
       font-size: 28px;
@@ -160,76 +180,74 @@
       background: #ffffff;
       color: #c40000;
     }
+
     .side-label {
       writing-mode: vertical-rl;
       text-orientation: upright;
-      font-size: 18px;
+      font-size: 26px;
       font-weight: bold;
       letter-spacing: 2px;
       background: #ffffff;
       color: #0077cc;
     }
-    .meta {
-      margin-top: 14px;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      font-size: 13px;
-    }
-    .meta-card {
-      border: 1px solid #ddd;
-      padding: 8px 10px;
-      background: #fafafa;
-    }
-    .meta-card strong {
-      display: block;
-      margin-bottom: 6px;
-    }
-    .note {
+
+    .error {
       margin-top: 12px;
-      font-size: 13px;
-      color: #444;
       text-align: center;
+      color: #c40000;
+      font-weight: bold;
+      min-height: 1.5em;
     }
+
     @media (max-width: 768px) {
       body {
         padding: 12px;
       }
+
       .title-cell {
         font-size: 20px;
         height: 48px;
       }
+
       .time-top,
       .time-bottom {
         font-size: 16px;
         height: 26px;
       }
+
       .time-label {
         font-size: 10px;
         height: 16px;
       }
+
       .school-row td {
         height: 126px;
       }
+
       .school-name {
         font-size: 22px;
         padding: 8px 0;
       }
+
       .chars-6plus {
         font-size: 18px;
       }
+
       .versus-cell {
         font-size: 18px;
         height: 34px;
       }
+
       .day-text {
         font-size: 20px;
       }
+
       .side-label {
-        font-size: 14px;
+        font-size: 18px;
       }
-      .meta {
-        grid-template-columns: repeat(2, 1fr);
+
+      .controls-row {
+        gap: 8px;
       }
     }
   </style>
@@ -237,14 +255,17 @@
 <body>
   <div class="wrap">
     <div class="controls">
-      <label for="yearStart">開始年</label>
-      <select id="yearStart"></select>
-      <label for="yearEnd">終了年</label>
-      <select id="yearEnd"></select>
-      <button id="shuffleBtn">ランダム生成</button>
-    </div>
+      <div class="controls-row">
+        <label for="yearStart">開始年</label>
+        <select id="yearStart"></select>
 
-    <div class="status" id="status">CSVを読み込み中...</div>
+        <label for="yearEnd">終了年</label>
+        <select id="yearEnd"></select>
+
+        <button id="shuffleBtn">ランダム生成</button>
+      </div>
+      <div class="error" id="errorText"></div>
+    </div>
 
     <table>
       <tbody>
@@ -254,13 +275,13 @@
 
         <tr>
           <td class="blank"></td>
-          <td class="time-top" id="time1-hour">08</td>
-          <td class="time-top" id="time2-hour">11</td>
-          <td class="time-top" id="time3-hour">13</td>
-          <td class="time-top" id="time4-hour">16</td>
+          <td class="time-top" id="time1-hour">15</td>
+          <td class="time-top" id="time2-hour">13</td>
+          <td class="time-top" id="time3-hour">10</td>
+          <td class="time-top" id="time4-hour">8</td>
           <td class="blank"></td>
           <td class="day-cell" rowspan="7">
-            <div class="day-text" id="dayText">第１日</div>
+            <div class="day-text" id="dayText">第Ｘ日</div>
           </td>
           <td class="blank"></td>
         </tr>
@@ -277,10 +298,10 @@
 
         <tr>
           <td class="blank"></td>
-          <td class="time-bottom" id="time1-minute">30</td>
-          <td class="time-bottom" id="time2-minute">00</td>
-          <td class="time-bottom" id="time3-minute">30</td>
-          <td class="time-bottom" id="time4-minute">00</td>
+          <td class="time-bottom" id="time1-minute">00</td>
+          <td class="time-bottom" id="time2-minute">30</td>
+          <td class="time-bottom" id="time3-minute">00</td>
+          <td class="time-bottom" id="time4-minute">30</td>
           <td class="blank"></td>
           <td class="blank"></td>
         </tr>
@@ -326,33 +347,28 @@
         </tr>
       </tbody>
     </table>
-
-    <div class="meta" id="metaCards"></div>
-
-    <div class="note">
-      都道府県（prefecture）単位で重複しないように抽選します。北北海道・南北海道、東東京・西東京は別枠として扱います。
-    </div>
   </div>
 
   <script>
     const gameTimes = [
-      { hour: "08", minute: "30" },
-      { hour: "11", minute: "00" },
-      { hour: "13", minute: "30" },
-      { hour: "16", minute: "00" }
+      { hour: "08", minute: "00" },
+      { hour: "10", minute: "30" },
+      { hour: "13", minute: "00" },
+      { hour: "15", minute: "30" }
     ];
 
-    let allRows = [];
-    let yearOptions = [];
+    const dayLabel = "第１日";
+    let schoolData = [];
 
-    function parseCsv(text) {
+    function parseCSV(text) {
       const lines = text.trim().split(/\r?\n/);
-      const headers = lines[0].split(",");
-      return lines.slice(1).map(line => {
-        const values = line.split(",");
+      const header = lines.shift().split(",");
+
+      return lines.map(line => {
+        const cols = line.split(",");
         const row = {};
-        headers.forEach((header, index) => {
-          row[header] = values[index];
+        header.forEach((key, i) => {
+          row[key.trim()] = (cols[i] || "").trim();
         });
         row.year = Number(row.year);
         return row;
@@ -383,6 +399,7 @@
     function renderVerticalName(elementId, schoolName) {
       const container = document.getElementById(elementId);
       container.innerHTML = "";
+
       const chars = splitSchoolName(schoolName);
       container.className = "school-name " + getClassByLength(chars.length);
 
@@ -404,128 +421,114 @@
       document.getElementById("time4-minute").textContent = times[3].minute;
     }
 
-    function populateYearSelectors(years) {
-      const start = document.getElementById("yearStart");
-      const end = document.getElementById("yearEnd");
-      start.innerHTML = "";
-      end.innerHTML = "";
+    function fillYearSelects(data) {
+      const years = [...new Set(data.map(row => row.year))].sort((a, b) => a - b);
+      const startSelect = document.getElementById("yearStart");
+      const endSelect = document.getElementById("yearEnd");
+
+      startSelect.innerHTML = "";
+      endSelect.innerHTML = "";
 
       years.forEach(year => {
-        const optionStart = document.createElement("option");
-        optionStart.value = year;
-        optionStart.textContent = year;
-        start.appendChild(optionStart);
+        const option1 = document.createElement("option");
+        option1.value = year;
+        option1.textContent = year;
+        startSelect.appendChild(option1);
 
-        const optionEnd = document.createElement("option");
-        optionEnd.value = year;
-        optionEnd.textContent = year;
-        end.appendChild(optionEnd);
+        const option2 = document.createElement("option");
+        option2.value = year;
+        option2.textContent = year;
+        endSelect.appendChild(option2);
       });
 
-      start.value = years[0];
-      end.value = years[years.length - 1];
+      startSelect.value = Math.min(...years);
+      endSelect.value = Math.max(...years);
     }
 
-    function getFilteredRows() {
+    function getFilteredData() {
       const startYear = Number(document.getElementById("yearStart").value);
       const endYear = Number(document.getElementById("yearEnd").value);
 
       if (startYear > endYear) {
-        throw new Error("開始年が終了年を上回っています。");
+        throw new Error("開始年は終了年以下にしてください。");
       }
 
-      return allRows.filter(row => row.year >= startYear && row.year <= endYear);
+      return schoolData.filter(row => row.year >= startYear && row.year <= endYear);
     }
 
-    function pickTeams(filteredRows, count = 8) {
+    function pickSchoolsWithoutDuplicatePrefecture(filteredData, count = 8) {
       const grouped = {};
-      filteredRows.forEach(row => {
-        if (!grouped[row.prefecture]) grouped[row.prefecture] = [];
+
+      filteredData.forEach(row => {
+        if (!grouped[row.prefecture]) {
+          grouped[row.prefecture] = [];
+        }
         grouped[row.prefecture].push(row);
       });
 
       const prefectures = Object.keys(grouped);
+
       if (prefectures.length < count) {
-        throw new Error(`抽選対象の都道府県が不足しています。現在 ${prefectures.length} 件です。`);
+        throw new Error("抽選可能な都道府県数が不足しています。年の範囲を広げてください。");
       }
 
       const selectedPrefectures = shuffleArray(prefectures).slice(0, count);
+
       return selectedPrefectures.map(prefecture => {
         const candidates = grouped[prefecture];
         return candidates[Math.floor(Math.random() * candidates.length)];
       });
     }
 
-    function renderMeta(teams) {
-      const meta = document.getElementById("metaCards");
-      meta.innerHTML = "";
-      teams.forEach((team, index) => {
-        const card = document.createElement("div");
-        card.className = "meta-card";
-        card.innerHTML = `
-          <strong>第${index + 1}試合</strong>
-          ${team.prefecture}<br>
-          ${team.year}年<br>
-          ${team.school}
-        `;
-        meta.appendChild(card);
-      });
-    }
+    function renderBracket() {
+      const errorText = document.getElementById("errorText");
+      errorText.textContent = "";
 
-    function renderBracket(teams) {
-      renderVerticalName("team1-top", teams[0].school);
-      renderVerticalName("team1-bottom", teams[1].school);
-      renderVerticalName("team2-top", teams[2].school);
-      renderVerticalName("team2-bottom", teams[3].school);
-      renderVerticalName("team3-top", teams[4].school);
-      renderVerticalName("team3-bottom", teams[5].school);
-      renderVerticalName("team4-top", teams[6].school);
-      renderVerticalName("team4-bottom", teams[7].school);
-
-      renderTimes(gameTimes);
-      renderMeta(teams);
-
-      const startYear = Number(document.getElementById("yearStart").value);
-      const endYear = Number(document.getElementById("yearEnd").value);
-      document.getElementById("dayText").textContent = startYear === endYear
-        ? `${startYear}年`
-        : `${startYear}\n〜\n${endYear}`;
-    }
-
-    function generateBoard() {
-      const status = document.getElementById("status");
       try {
-        const filteredRows = getFilteredRows();
-        const teams = pickTeams(filteredRows, 8);
-        renderBracket(teams);
-        status.textContent = `${filteredRows.length}件の候補から抽選しました。`;
+        const filteredData = getFilteredData();
+        const selected = pickSchoolsWithoutDuplicatePrefecture(filteredData, 8);
+
+        renderVerticalName("team1-top", selected[0].school);
+        renderVerticalName("team1-bottom", selected[1].school);
+
+        renderVerticalName("team2-top", selected[2].school);
+        renderVerticalName("team2-bottom", selected[3].school);
+
+        renderVerticalName("team3-top", selected[4].school);
+        renderVerticalName("team3-bottom", selected[5].school);
+
+        renderVerticalName("team4-top", selected[6].school);
+        renderVerticalName("team4-bottom", selected[7].school);
+
+        renderTimes(gameTimes);
+        document.getElementById("dayText").textContent = dayLabel;
       } catch (error) {
-        status.textContent = error.message;
+        errorText.textContent = error.message;
       }
     }
 
-    async function initialize() {
+    async function init() {
       try {
         const response = await fetch("./schools.csv");
         if (!response.ok) {
-          throw new Error("schools.csv を読み込めませんでした。GitHub Pages上では index.html と同じ階層に置いてください。");
+          throw new Error("schools.csv の読み込みに失敗しました。");
         }
 
-        const text = await response.text();
-        allRows = parseCsv(text);
-        yearOptions = [...new Set(allRows.map(row => row.year))].sort((a, b) => a - b);
-        populateYearSelectors(yearOptions);
-        generateBoard();
+        const csvText = await response.text();
+        schoolData = parseCSV(csvText);
+
+        fillYearSelects(schoolData);
+        renderBracket();
+
+        document.getElementById("shuffleBtn").addEventListener("click", renderBracket);
+        document.getElementById("yearStart").addEventListener("change", renderBracket);
+        document.getElementById("yearEnd").addEventListener("change", renderBracket);
       } catch (error) {
-        document.getElementById("status").textContent = error.message;
+        document.getElementById("errorText").textContent = error.message;
       }
     }
 
-    document.getElementById("shuffleBtn").addEventListener("click", generateBoard);
-    document.getElementById("yearStart").addEventListener("change", generateBoard);
-    document.getElementById("yearEnd").addEventListener("change", generateBoard);
-
-    initialize();
+    init();
   </script>
 </body>
 </html>
