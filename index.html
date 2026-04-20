@@ -262,7 +262,7 @@
         <label for="yearEnd">終了年</label>
         <select id="yearEnd"></select>
 
-        <button id="shuffleBtn">ランダム生成</button>
+        <button id="shuffleBtn">別日の対戦ボード</button>
       </div>
       <div class="error" id="errorText"></div>
     </div>
@@ -351,13 +351,13 @@
 
   <script>
     const gameTimes = [
-      { hour: "08", minute: "00" },
-      { hour: "10", minute: "30" },
+      { hour: "15", minute: "30" },
       { hour: "13", minute: "00" },
-      { hour: "15", minute: "30" }
+      { hour: "10", minute: "30" },
+      { hour: "8", minute: "00" }
     ];
 
-    const dayLabel = "第１日";
+    const dayLabel = "第Ｘ日";
     let schoolData = [];
 
     function parseCSV(text) {
