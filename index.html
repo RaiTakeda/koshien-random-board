@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>甲子園風ランダム対戦表</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #ffffff;
+      font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      color: #111;
+    }
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .controls {
+      margin-bottom: 16px;
+      text-align: center;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      align-items: center;
+    }
+    .controls label {
+      font-weight: bold;
+      font-size: 14px;
+    }
+    .controls select,
+    .controls button {
+      padding: 10px 14px;
+      font-size: 15px;
+      font-weight: bold;
+      border: 1px solid #333;
+      background: #fff;
+    }
+    .controls button {
+      cursor: pointer;
+    }
+    .status {
+      margin: 0 0 14px;
+      text-align: center;
+      font-size: 14px;
+      color: #444;
+      min-height: 1.5em;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      background: #ffffff;
+    }
+    td {
+      border: 1px solid #ffffff;
+      text-align: center;
+      vertical-align: middle;
+      padding: 0;
+      background: #ffffff;
+    }
+    .title-cell {
+      background: #0b3d2e;
+      color: #fff;
+      font-family: Impact, "Arial Black", sans-serif;
+      font-weight: bold;
+      font-size: 28px;
+      letter-spacing: 1px;
+      height: 56px;
+    }
+    .time-top,
+    .time-bottom {
+      height: 30px;
+      font-size: 22px;
+      font-weight: bold;
+      background: #ffffff;
+      color: #c40000;
+    }
+    .time-label {
+      height: 18px;
+      font-size: 11px;
+      font-weight: bold;
+      background: #ffffff;
+      color: #c40000;
+    }
+    .blank {
+      background: #ffffff;
+    }
+    .day-cell {
+      width: 86px;
+      background: #ffffff;
+    }
+    .day-text {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      margin: 0 auto;
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      line-height: 1.2;
+      color: #c40000;
+    }
+    .school-row td {
+      height: 190px;
+    }
+    .school-cell {
+      background: #ffffff;
+    }
+    .school-name {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-sizing: border-box;
+      font-weight: bold;
+      font-size: 34px;
+      line-height: 1;
+      padding: 14px 0;
+      background: #ffffff;
+    }
+    .school-name span {
+      display: block;
+      width: 100%;
+      text-align: center;
+      white-space: nowrap;
+      transform: scaleY(1.02);
+    }
+    .chars-2 {
+      justify-content: space-between;
+      padding-top: 12px;
+      padding-bottom: 12px;
+    }
+    .chars-3 {
+      justify-content: space-between;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+    .chars-4 {
+      justify-content: space-around;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    .chars-5 {
+      justify-content: space-between;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    .chars-6plus {
+      justify-content: space-evenly;
+      font-size: 28px;
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+    .versus-cell {
+      height: 42px;
+      font-size: 28px;
+      font-weight: bold;
+      background: #ffffff;
+      color: #c40000;
+    }
+    .side-label {
+      writing-mode: vertical-rl;
+      text-orientation: upright;
+      font-size: 18px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      background: #ffffff;
+      color: #0077cc;
+    }
+    .meta {
+      margin-top: 14px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      font-size: 13px;
+    }
+    .meta-card {
+      border: 1px solid #ddd;
+      padding: 8px 10px;
+      background: #fafafa;
+    }
+    .meta-card strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+    .note {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #444;
+      text-align: center;
+    }
+    @media (max-width: 768px) {
+      body {
+        padding: 12px;
+      }
+      .title-cell {
+        font-size: 20px;
+        height: 48px;
+      }
+      .time-top,
+      .time-bottom {
+        font-size: 16px;
+        height: 26px;
+      }
+      .time-label {
+        font-size: 10px;
+        height: 16px;
+      }
+      .school-row td {
+        height: 126px;
+      }
+      .school-name {
+        font-size: 22px;
+        padding: 8px 0;
+      }
+      .chars-6plus {
+        font-size: 18px;
+      }
+      .versus-cell {
+        font-size: 18px;
+        height: 34px;
+      }
+      .day-text {
+        font-size: 20px;
+      }
+      .side-label {
+        font-size: 14px;
+      }
+      .meta {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="controls">
+      <label for="yearStart">開始年</label>
+      <select id="yearStart"></select>
+      <label for="yearEnd">終了年</label>
+      <select id="yearEnd"></select>
+      <button id="shuffleBtn">ランダム生成</button>
+    </div>
+
+    <div class="status" id="status">CSVを読み込み中...</div>
+
+    <table>
+      <tbody>
+        <tr>
+          <td class="title-cell" colspan="8">HANSHIN KOSHIEN STADIUM</td>
+        </tr>
+
+        <tr>
+          <td class="blank"></td>
+          <td class="time-top" id="time1-hour">08</td>
+          <td class="time-top" id="time2-hour">11</td>
+          <td class="time-top" id="time3-hour">13</td>
+          <td class="time-top" id="time4-hour">16</td>
+          <td class="blank"></td>
+          <td class="day-cell" rowspan="7">
+            <div class="day-text" id="dayText">第１日</div>
+          </td>
+          <td class="blank"></td>
+        </tr>
+
+        <tr>
+          <td class="blank"></td>
+          <td class="time-label">時</td>
+          <td class="time-label">時</td>
+          <td class="time-label">時</td>
+          <td class="time-label">時</td>
+          <td class="blank"></td>
+          <td class="blank"></td>
+        </tr>
+
+        <tr>
+          <td class="blank"></td>
+          <td class="time-bottom" id="time1-minute">30</td>
+          <td class="time-bottom" id="time2-minute">00</td>
+          <td class="time-bottom" id="time3-minute">30</td>
+          <td class="time-bottom" id="time4-minute">00</td>
+          <td class="blank"></td>
+          <td class="blank"></td>
+        </tr>
+
+        <tr>
+          <td class="blank"></td>
+          <td class="time-label">分</td>
+          <td class="time-label">分</td>
+          <td class="time-label">分</td>
+          <td class="time-label">分</td>
+          <td class="blank"></td>
+          <td class="blank"></td>
+        </tr>
+
+        <tr class="school-row">
+          <td class="blank"></td>
+          <td class="school-cell"><div class="school-name" id="team1-top"></div></td>
+          <td class="school-cell"><div class="school-name" id="team2-top"></div></td>
+          <td class="school-cell"><div class="school-name" id="team3-top"></div></td>
+          <td class="school-cell"><div class="school-name" id="team4-top"></div></td>
+          <td class="side-label">１塁側</td>
+          <td class="blank"></td>
+        </tr>
+
+        <tr>
+          <td class="blank"></td>
+          <td class="versus-cell">┃</td>
+          <td class="versus-cell">┃</td>
+          <td class="versus-cell">┃</td>
+          <td class="versus-cell">┃</td>
+          <td class="blank"></td>
+          <td class="blank"></td>
+        </tr>
+
+        <tr class="school-row">
+          <td class="blank"></td>
+          <td class="school-cell"><div class="school-name" id="team1-bottom"></div></td>
+          <td class="school-cell"><div class="school-name" id="team2-bottom"></div></td>
+          <td class="school-cell"><div class="school-name" id="team3-bottom"></div></td>
+          <td class="school-cell"><div class="school-name" id="team4-bottom"></div></td>
+          <td class="side-label">３塁側</td>
+          <td class="blank"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="meta" id="metaCards"></div>
+
+    <div class="note">
+      都道府県（prefecture）単位で重複しないように抽選します。北北海道・南北海道、東東京・西東京は別枠として扱います。
+    </div>
+  </div>
+
+  <script>
+    const gameTimes = [
+      { hour: "08", minute: "30" },
+      { hour: "11", minute: "00" },
+      { hour: "13", minute: "30" },
+      { hour: "16", minute: "00" }
+    ];
+
+    let allRows = [];
+    let yearOptions = [];
+
+    function parseCsv(text) {
+      const lines = text.trim().split(/\r?\n/);
+      const headers = lines[0].split(",");
+      return lines.slice(1).map(line => {
+        const values = line.split(",");
+        const row = {};
+        headers.forEach((header, index) => {
+          row[header] = values[index];
+        });
+        row.year = Number(row.year);
+        return row;
+      });
+    }
+
+    function shuffleArray(array) {
+      const copied = [...array];
+      for (let i = copied.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copied[i], copied[j]] = [copied[j], copied[i]];
+      }
+      return copied;
+    }
+
+    function splitSchoolName(name) {
+      return [...name];
+    }
+
+    function getClassByLength(length) {
+      if (length <= 2) return "chars-2";
+      if (length === 3) return "chars-3";
+      if (length === 4) return "chars-4";
+      if (length === 5) return "chars-5";
+      return "chars-6plus";
+    }
+
+    function renderVerticalName(elementId, schoolName) {
+      const container = document.getElementById(elementId);
+      container.innerHTML = "";
+      const chars = splitSchoolName(schoolName);
+      container.className = "school-name " + getClassByLength(chars.length);
+
+      chars.forEach(char => {
+        const span = document.createElement("span");
+        span.textContent = char;
+        container.appendChild(span);
+      });
+    }
+
+    function renderTimes(times) {
+      document.getElementById("time1-hour").textContent = times[0].hour;
+      document.getElementById("time1-minute").textContent = times[0].minute;
+      document.getElementById("time2-hour").textContent = times[1].hour;
+      document.getElementById("time2-minute").textContent = times[1].minute;
+      document.getElementById("time3-hour").textContent = times[2].hour;
+      document.getElementById("time3-minute").textContent = times[2].minute;
+      document.getElementById("time4-hour").textContent = times[3].hour;
+      document.getElementById("time4-minute").textContent = times[3].minute;
+    }
+
+    function populateYearSelectors(years) {
+      const start = document.getElementById("yearStart");
+      const end = document.getElementById("yearEnd");
+      start.innerHTML = "";
+      end.innerHTML = "";
+
+      years.forEach(year => {
+        const optionStart = document.createElement("option");
+        optionStart.value = year;
+        optionStart.textContent = year;
+        start.appendChild(optionStart);
+
+        const optionEnd = document.createElement("option");
+        optionEnd.value = year;
+        optionEnd.textContent = year;
+        end.appendChild(optionEnd);
+      });
+
+      start.value = years[0];
+      end.value = years[years.length - 1];
+    }
+
+    function getFilteredRows() {
+      const startYear = Number(document.getElementById("yearStart").value);
+      const endYear = Number(document.getElementById("yearEnd").value);
+
+      if (startYear > endYear) {
+        throw new Error("開始年が終了年を上回っています。");
+      }
+
+      return allRows.filter(row => row.year >= startYear && row.year <= endYear);
+    }
+
+    function pickTeams(filteredRows, count = 8) {
+      const grouped = {};
+      filteredRows.forEach(row => {
+        if (!grouped[row.prefecture]) grouped[row.prefecture] = [];
+        grouped[row.prefecture].push(row);
+      });
+
+      const prefectures = Object.keys(grouped);
+      if (prefectures.length < count) {
+        throw new Error(`抽選対象の都道府県が不足しています。現在 ${prefectures.length} 件です。`);
+      }
+
+      const selectedPrefectures = shuffleArray(prefectures).slice(0, count);
+      return selectedPrefectures.map(prefecture => {
+        const candidates = grouped[prefecture];
+        return candidates[Math.floor(Math.random() * candidates.length)];
+      });
+    }
+
+    function renderMeta(teams) {
+      const meta = document.getElementById("metaCards");
+      meta.innerHTML = "";
+      teams.forEach((team, index) => {
+        const card = document.createElement("div");
+        card.className = "meta-card";
+        card.innerHTML = `
+          <strong>第${index + 1}試合</strong>
+          ${team.prefecture}<br>
+          ${team.year}年<br>
+          ${team.school}
+        `;
+        meta.appendChild(card);
+      });
+    }
+
+    function renderBracket(teams) {
+      renderVerticalName("team1-top", teams[0].school);
+      renderVerticalName("team1-bottom", teams[1].school);
+      renderVerticalName("team2-top", teams[2].school);
+      renderVerticalName("team2-bottom", teams[3].school);
+      renderVerticalName("team3-top", teams[4].school);
+      renderVerticalName("team3-bottom", teams[5].school);
+      renderVerticalName("team4-top", teams[6].school);
+      renderVerticalName("team4-bottom", teams[7].school);
+
+      renderTimes(gameTimes);
+      renderMeta(teams);
+
+      const startYear = Number(document.getElementById("yearStart").value);
+      const endYear = Number(document.getElementById("yearEnd").value);
+      document.getElementById("dayText").textContent = startYear === endYear
+        ? `${startYear}年`
+        : `${startYear}\n〜\n${endYear}`;
+    }
+
+    function generateBoard() {
+      const status = document.getElementById("status");
+      try {
+        const filteredRows = getFilteredRows();
+        const teams = pickTeams(filteredRows, 8);
+        renderBracket(teams);
+        status.textContent = `${filteredRows.length}件の候補から抽選しました。`;
+      } catch (error) {
+        status.textContent = error.message;
+      }
+    }
+
+    async function initialize() {
+      try {
+        const response = await fetch("./schools.csv");
+        if (!response.ok) {
+          throw new Error("schools.csv を読み込めませんでした。GitHub Pages上では index.html と同じ階層に置いてください。");
+        }
+
+        const text = await response.text();
+        allRows = parseCsv(text);
+        yearOptions = [...new Set(allRows.map(row => row.year))].sort((a, b) => a - b);
+        populateYearSelectors(yearOptions);
+        generateBoard();
+      } catch (error) {
+        document.getElementById("status").textContent = error.message;
+      }
+    }
+
+    document.getElementById("shuffleBtn").addEventListener("click", generateBoard);
+    document.getElementById("yearStart").addEventListener("change", generateBoard);
+    document.getElementById("yearEnd").addEventListener("change", generateBoard);
+
+    initialize();
+  </script>
+</body>
+</html>
