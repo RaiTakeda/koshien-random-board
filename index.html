@@ -85,7 +85,7 @@
     }
 
     .time-label {
-      height: 12px;
+      height: 18px;
       font-size: 11px;
       font-weight: bold;
       background: #ffffff;
@@ -101,15 +101,39 @@
       background: #ffffff;
     }
 
+    .side-cell {
+      width: 72px;
+      background: #ffffff;
+    }
+
+    .stacked-vertical {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .stacked-vertical span {
+      display: block;
+      text-align: center;
+      line-height: 1;
+    }
+
     .day-text {
-      writing-mode: vertical-rl;
-      text-orientation: upright;
-      margin: 0 auto;
+      color: #c40000;
       font-size: 28px;
       font-weight: bold;
-      letter-spacing: 2px;
-      line-height: 1.2;
-      color: #c40000;
+      gap: 10px;
+    }
+
+    .side-label {
+      color: #0077cc;
+      font-size: 26px;
+      font-weight: bold;
+      gap: 12px;
     }
 
     .school-row td {
@@ -181,16 +205,6 @@
       color: #c40000;
     }
 
-    .side-label {
-      writing-mode: vertical-rl;
-      text-orientation: upright;
-      font-size: 26px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      background: #ffffff;
-      color: #0077cc;
-    }
-
     .error {
       margin-top: 12px;
       text-align: center;
@@ -212,12 +226,12 @@
       .time-top,
       .time-bottom {
         font-size: 16px;
-        height: 26px;
+        height: 22px;
       }
 
       .time-label {
         font-size: 10px;
-        height: 16px;
+        height: 12px;
       }
 
       .school-row td {
@@ -240,14 +254,24 @@
 
       .day-text {
         font-size: 20px;
+        gap: 8px;
       }
 
       .side-label {
         font-size: 18px;
+        gap: 8px;
       }
 
       .controls-row {
         gap: 8px;
+      }
+
+      .day-cell {
+        width: 60px;
+      }
+
+      .side-cell {
+        width: 52px;
       }
     }
   </style>
@@ -275,13 +299,13 @@
 
         <tr>
           <td class="blank"></td>
-          <td class="time-top" id="time1-hour">15</td>
-          <td class="time-top" id="time2-hour">13</td>
-          <td class="time-top" id="time3-hour">10</td>
-          <td class="time-top" id="time4-hour">8</td>
+          <td class="time-top" id="time1-hour">08</td>
+          <td class="time-top" id="time2-hour">10</td>
+          <td class="time-top" id="time3-hour">13</td>
+          <td class="time-top" id="time4-hour">15</td>
           <td class="blank"></td>
           <td class="day-cell" rowspan="7">
-            <div class="day-text" id="dayText">第Ｘ日</div>
+            <div class="stacked-vertical day-text" id="dayText"></div>
           </td>
           <td class="blank"></td>
         </tr>
@@ -322,7 +346,9 @@
           <td class="school-cell"><div class="school-name" id="team2-top"></div></td>
           <td class="school-cell"><div class="school-name" id="team3-top"></div></td>
           <td class="school-cell"><div class="school-name" id="team4-top"></div></td>
-          <td class="side-label">１塁側</td>
+          <td class="side-cell">
+            <div class="stacked-vertical side-label" id="firstBaseLabel"></div>
+          </td>
           <td class="blank"></td>
         </tr>
 
@@ -342,7 +368,9 @@
           <td class="school-cell"><div class="school-name" id="team2-bottom"></div></td>
           <td class="school-cell"><div class="school-name" id="team3-bottom"></div></td>
           <td class="school-cell"><div class="school-name" id="team4-bottom"></div></td>
-          <td class="side-label">３塁側</td>
+          <td class="side-cell">
+            <div class="stacked-vertical side-label" id="thirdBaseLabel"></div>
+          </td>
           <td class="blank"></td>
         </tr>
       </tbody>
@@ -357,7 +385,7 @@
       { hour: "8", minute: "00" }
     ];
 
-    const dayLabel = "第Ｘ日";
+    const dayLabel = "第X日";
     let schoolData = [];
 
     function parseCSV(text) {
@@ -410,6 +438,17 @@
       });
     }
 
+    function renderStackedText(elementId, text) {
+      const container = document.getElementById(elementId);
+      container.innerHTML = "";
+
+      [...text].forEach(char => {
+        const span = document.createElement("span");
+        span.textContent = char;
+        container.appendChild(span);
+      });
+    }
+
     function renderTimes(times) {
       document.getElementById("time1-hour").textContent = times[0].hour;
       document.getElementById("time1-minute").textContent = times[0].minute;
@@ -441,8 +480,8 @@
         endSelect.appendChild(option2);
       });
 
-      startSelect.value = Math.min(...years);
-      endSelect.value = Math.max(...years);
+      startSelect.value = 2015;
+      endSelect.value = 2025;
     }
 
     function getFilteredData() {
@@ -501,7 +540,9 @@
         renderVerticalName("team4-bottom", selected[7].school);
 
         renderTimes(gameTimes);
-        document.getElementById("dayText").textContent = dayLabel;
+        renderStackedText("dayText", dayLabel);
+        renderStackedText("firstBaseLabel", "１塁側");
+        renderStackedText("thirdBaseLabel", "３塁側");
       } catch (error) {
         errorText.textContent = error.message;
       }
